@@ -1,4 +1,5 @@
 #include "WindowWT.h"
+#include "../Graphics/graphics.h"
 
 LRESULT CALLBACK WindowWT::WinProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 	switch (uMsg) {
@@ -38,11 +39,13 @@ bool WindowWT::WT_CreateWindow(LPCWSTR windowName, int width, int height) {
 	);
 
 	if (hwnd == NULL) {
-		return false;;
+		return false;
 	}
 
 	ShowWindow(hwnd, cmdShow);
 	UpdateWindow(hwnd);
+
+	gtx = new Graphics(hwnd);
 	return true;
 }
 
@@ -58,10 +61,18 @@ int WindowWT::Run() {
 				running = false;
 			}
 		}
+		gtx->Frame();
 
 		if (!running)
 			break;
+
+		Sleep(100); // 16 = 60fps
 	}
 
 	return 0;
 }
+
+WindowWT::WindowWT(HINSTANCE hInst, int cs) : hInstance(hInst), cmdShow(cs) {
+	
+}
+

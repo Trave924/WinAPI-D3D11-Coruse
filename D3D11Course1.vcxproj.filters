@@ -3,8 +3,12 @@
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\WindowWT\WindowWT.cpp" />
+    <ClCompile Include="src\Graphics\graphics.cpp" />
+    <ClCompile Include="src\Misc\misc.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\WindowWT\WindowWT.h" />
+    <ClInclude Include="src\Graphics\graphics.h" />
+    <ClInclude Include="src\Misc\misc.h" />
   </ItemGroup>
 </Project>

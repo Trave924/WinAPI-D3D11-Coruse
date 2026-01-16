@@ -1,6 +1,8 @@
 #pragma once
 #include <Windows.h>
 
+class Graphics;
+
 class WindowWT {
 	public:
 		static LRESULT CALLBACK WinProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
@@ -8,18 +10,17 @@ class WindowWT {
 		bool WT_CreateWindow(LPCWSTR windowName, int width, int height);
 		int Run();
 
-		WindowWT(HINSTANCE hInst , int cs) : hInstance(hInst) , cmdShow(cs) {
-
-		}
+		WindowWT(HINSTANCE hInst , int cs);
 
 		~WindowWT() {
 			::UnregisterClass(wc.lpszClassName, hInstance);
 		}
+		HWND hwnd;
 	private:
 
 		WNDCLASSEX wc;
 		LPCWSTR className;
 		HINSTANCE hInstance;
 		int cmdShow;
-		HWND hwnd;
+		Graphics* gtx;
 };

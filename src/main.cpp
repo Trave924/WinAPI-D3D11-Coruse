@@ -2,11 +2,11 @@
 
 
 
-int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR, int cmdShow) {
+int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR, int cmdShow) {
 	
 	WindowWT wndWT = WindowWT(hInstance, cmdShow);
 	wndWT.WT_CreateWndClass(L"MyClassWindowTest");
-	wndWT.WT_CreateWindow(L"My Window", 800, 600);
+	wndWT.WT_CreateWindowOverlay();
 	wndWT.Run();
 	
 

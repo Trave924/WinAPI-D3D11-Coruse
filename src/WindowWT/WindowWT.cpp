@@ -1,5 +1,6 @@
 #include "WindowWT.h"
 #include "../Graphics/graphics.h"
+#include "dwmapi.h"
 
 LRESULT CALLBACK WindowWT::WinProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 	switch (uMsg) {
@@ -37,6 +38,35 @@ bool WindowWT::WT_CreateWindow(LPCWSTR windowName, int width, int height) {
 		CW_USEDEFAULT, CW_USEDEFAULT, width, height,
 		nullptr, nullptr, hInstance, nullptr
 	);
+
+	if (hwnd == NULL) {
+		return false;
+	}
+
+	ShowWindow(hwnd, cmdShow);
+	UpdateWindow(hwnd);
+
+	gtx = new Graphics(hwnd);
+	return true;
+}
+
+bool WindowWT::WT_CreateWindowOverlay() {
+	int width = GetSystemMetrics(SM_CXSCREEN);
+	int height = GetSystemMetrics(SM_CYSCREEN);
+
+	hwnd = CreateWindowEx(
+		WS_EX_TOPMOST | WS_EX_TRANSPARENT | WS_EX_LAYERED,
+		wc.lpszClassName,
+		L"",
+		WS_POPUP,
+		CW_USEDEFAULT, CW_USEDEFAULT, width, height,
+		nullptr, nullptr, hInstance, nullptr
+	);
+
+	SetLayeredWindowAttributes(hwnd, RGB(0, 0, 0), BYTE(255), LWA_ALPHA);
+
+	const MARGINS margins = { -1 };
+	DwmExtendFrameIntoClientArea(hwnd, &margins);
 
 	if (hwnd == NULL) {
 		return false;
